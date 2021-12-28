@@ -10,6 +10,9 @@ You want to become a really good programmer? You have to know algorithms and dat
 - Linked List
 - Union-Find (Disjoint-Set)
 - Stack
+    - Linked List Implementation
+    - Resizable Array Implementation
+- Queue
 
 ## Algorithms
 
