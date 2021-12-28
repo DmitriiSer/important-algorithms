@@ -1,6 +1,6 @@
 const res = require("express/lib/response");
 
-class LinkedStack {
+class LinkedListStack {
 
     constructor() {
         this.first = null;
@@ -11,7 +11,7 @@ class LinkedStack {
     }
 
     push(data) {
-        const node = new LinkedStack.LinkedNode(data);
+        const node = new LinkedListStack.LinkedNode(data);
         if (this.first) {
             const oldFirst = this.first;
             this.first = node;
@@ -30,14 +30,14 @@ class LinkedStack {
         return null;
     }
 }
-LinkedStack.LinkedNode = class LinkedNode {
+LinkedListStack.LinkedNode = class LinkedNode {
     constructor(data) {
         this.data = data;
         this.next = null;
     }
 };
 
-const stack = new LinkedStack();
+const stack = new LinkedListStack();
 stack.push('A');
 stack.push('B');
 stack.push('C');
