@@ -7,7 +7,9 @@ You want to become a really good programmer? You have to know algorithms and dat
 
 ## Data Structures
 
+- Linked List
 - Union-Find (Disjoint-Set)
+- Stack
 
 ## Algorithms
 
