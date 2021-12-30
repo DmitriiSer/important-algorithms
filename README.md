@@ -13,6 +13,8 @@ You want to become a really good programmer? You have to know algorithms and dat
     - Linked List Implementation
     - Resizable Array Implementation
 - Queue
+    - Dequeue
+    - Randomized Queue
 
 ## Algorithms
 
@@ -22,8 +24,12 @@ You want to become a really good programmer? You have to know algorithms and dat
 
 ### Sort algorithms
 
-- Quick Sort
+- Selection Sort
+- Insertion Sort
+- Shell Sort
+- Linear Shuffle
 - Merge Sort
+- Quick Sort
 
 ### Other
 
