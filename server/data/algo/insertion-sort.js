@@ -1,3 +1,5 @@
+const swap = require('./util').swap;
+
 /**
  * 
  * @param {number[]} arr 
@@ -13,18 +15,6 @@ const insertionSort = (arr) => {
     }
     return arr;
 };
-
-/**
- * 
- * @param {number[]} arr 
- * @param {number} i
- * @param {number} j 
- */
-const swap = (arr, i, j) => {
-    const tmp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = tmp;
-}
 
 const assert = require('assert');
 assert.equal(
