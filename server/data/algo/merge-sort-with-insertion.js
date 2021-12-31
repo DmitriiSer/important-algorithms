@@ -36,6 +36,8 @@ const mergeWithInsertion = (arr, aux = [], lo = 0, hi = arr.length - 1, cutoff =
     const mid = ((hi - lo) / 2 | 0) + lo;
     mergeWithInsertion(arr, aux, lo, mid);
     mergeWithInsertion(arr, aux, mid + 1, hi);
+    // practical improvement - check if both sides are already sorted
+    if (arr[mid] < arr[mid + 1]) return;
     merge(arr, aux, lo, mid, hi);
 };
 
