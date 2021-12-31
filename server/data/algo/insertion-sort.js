@@ -5,9 +5,9 @@ const swap = require('./util').swap;
  * @param {number[]} arr 
  * @returns number[]
  */
-const insertionSort = (arr) => {
-    for (let i = 1; i < arr.length; i++) {
-        for (let j = i; j > 0; j--) {
+const insertionSort = (arr, lo = 0, hi = arr.length - 1) => {
+    for (let i = lo + 1; i <= hi; i++) {
+        for (let j = i; j > lo; j--) {
             if (arr[j] < arr[j - 1]) {
                 swap(arr, j, j - 1);
             } else break;
@@ -24,3 +24,5 @@ assert.equal(
     JSON.stringify(insertionSort([73, -1, 5, -23, -8, 7, 7, 9, 6])),
     JSON.stringify([-23, -8, -1, 5, 6, 7, 7, 9, 73]));
 console.log('All tests passed!');
+
+module.exports = insertionSort;

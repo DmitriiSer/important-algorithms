@@ -29,6 +29,8 @@ You want to become a really good programmer? You have to know algorithms and dat
 - Shell Sort
 - Linear Shuffle
 - Merge Sort
+    - Recursive Implementation
+    - Improved Implementation with Insertion Sort
 - Quick Sort
 
 ### Other
