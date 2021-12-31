@@ -40,6 +40,11 @@ const mergeSort = (arr, aux = [], lo = 0, hi = arr.length - 1) => {
     merge(arr, aux, lo, mid, hi);
 };
 
+module.exports = {
+    merge: merge,
+    mergeSort: mergeSort
+};
+
 let arr = [3, 7, 8, 9, 10, 4, 6, 11, 12];
 mergeSort(arr);
 assert.deepEqual(arr, [3, 4, 6, 7, 8, 9, 10, 11, 12]);

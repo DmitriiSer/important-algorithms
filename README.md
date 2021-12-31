@@ -10,8 +10,8 @@ You want to become a really good programmer? You have to know algorithms and dat
 - Linked List
 - Union-Find (Disjoint-Set)
 - Stack
-    - Linked List Implementation
-    - Resizable Array Implementation
+    - Linked list implementation
+    - Resizable array implementation
 - Queue
     - Dequeue
     - Randomized Queue
@@ -29,10 +29,11 @@ You want to become a really good programmer? You have to know algorithms and dat
 - Shell Sort
 - Linear Shuffle
 - Merge Sort
-    - Recursive Implementation
-    - Improved Implementation with Insertion Sort
+    - Recursive implementation
+    - Improved implementation with insertion sort
+    - Bottom-up implementation with no recursion
 - Quick Sort
 
 ### Other
 
-- Union-find algorithm
+- Union-find (Disjoint-set) algorithm
