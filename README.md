@@ -15,6 +15,12 @@ You want to become a really good programmer? You have to know algorithms and dat
 - Queue
     - Dequeue
     - Randomized Queue
+    - Priority Queue
+        - Unordered Array Implementation
+        - Ordered Array Implementation
+        - Binary Heap Implementation
+- Binary Heap
+    - Max-oriented Heap
 
 ## Algorithms
 
@@ -33,6 +39,18 @@ You want to become a really good programmer? You have to know algorithms and dat
     - Improved implementation with insertion sort
     - Bottom-up implementation with no recursion
 - Quick Sort
+- Heap Sort
+
+
+|             | in-place | stable | worst    | average  | best    | comments                                             |
+|-------------|----------|--------|----------|----------|---------|------------------------------------------------------|
+| selection   | *        |        | N^2 / 2  | N^2 / 2  | N^2 / 2 | N exchanges                                          |
+| insertion   | *        | *      | N^2 / 2  | N^2 / 4  | N       | use for small N or partially ordered                 |
+| shell       | *        |        | ?        | ?        | N       | tight code, subquadratic                             |
+| quick       | *        |        | N^2 / 2  | 2 N ln N | N lg N  | N log N probabilistic guarantee, fastest in practice |
+| 3-way quick | *        |        | N^2 / 2  | 2 N ln N | N       | improves quicksort in presence of duplicate keys     |
+| merge       |          | *      | N lg N   | N lg N   | N lg N  | N log N guarantee, stable                            |
+| heap        | *        |        | 2 N lg N | 2 N lg N | N lg N  | N log N guarantee, in-place                          |
 
 ### Other
 
