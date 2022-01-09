@@ -21,12 +21,26 @@ You want to become a really good programmer? You have to know algorithms and dat
         - Binary Heap Implementation
 - Binary Heap
     - Max-oriented Heap
+- Symbol Tables
+- Trees
+    - Binary Search Tree (BST)
+    - 2-3 Trees
+    - Left-leaning Red-Black Tree (LLRB)
+    - B-trees
+    - 2D Tree
+    - Kd-Trees
 
 ## Algorithms
 
 ### Search algorithms
 
 - Binary Search
+- Tree Traversal
+    - DST
+        - In-Order
+        - Preorder
+        - Postorder
+    - BST / Level-Order
 
 ### Sort algorithms
 
