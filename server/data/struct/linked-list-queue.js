@@ -1,3 +1,5 @@
+const assert = require('assert');
+
 class LinkedListQueue {
 
     constructor() {
@@ -39,14 +41,16 @@ LinkedListQueue.LinkedNode = class LinkedNode {
     }
 }
 
+module.exports = LinkedListQueue;
+
 const q = new LinkedListQueue();
 q.enqueue('A');
 q.enqueue('B');
 q.enqueue('C');
-console.log(`Dequeued ${q.dequeue()}`);
+q.dequeue();
 q.enqueue('D');
-console.log(`isEmpty => ${q.isEmpty()}`);
+assert.ok(!q.isEmpty());
 q.dequeue();
 q.dequeue();
 q.dequeue();
-console.log(`isEmpty => ${q.isEmpty()}`);
+assert.ok(q.isEmpty());
