@@ -70,12 +70,12 @@ class Graph {
 
     toString() {
         let str = '';
-        for (let v = 0; v < this.getVerticesCount(); v++) {
-            let adjVerticesStr = '';
+        for (let v = 0; v < this.getVertexCount(); v++) {
+            let adjVerticesStr = [];
             for (let a of this.adj(v)) {
-                adjVerticesStr += a + ' ';
+                adjVerticesStr.push(a);
             }
-            str += `${v} -> ${adjVerticesStr}\n`;
+            str += `${v} -> ${adjVerticesStr.length > 0 ? adjVerticesStr.join(' ') : 'null'}\n`;
         }
         return str;
     }
