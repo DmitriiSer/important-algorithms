@@ -73,6 +73,8 @@ class Digraph {
     }
 }
 
+module.exports = Digraph;
+
 // 6 vertices, 9 edges:
 //   0 ←-- 2
 //   |↘   ↓↑ ↖

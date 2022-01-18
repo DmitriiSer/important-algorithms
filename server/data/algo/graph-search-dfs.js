@@ -14,13 +14,19 @@ class GraphDFS {
     #edgeTo;
 
     /**
+     * @type {Array}
+     */
+    #reversePost;
+
+    /**
      * 
-     * @param {Graph} graph 
+     * @param {Object} graph 
      * @param {number} s
      */
     constructor(graph, s) {
         this.#marked = [];
         this.#edgeTo = [];
+        this.#reversePost = [];
         for (let v = 0; v < graph.getVertexCount(); v++) {
             this.#marked.push(false);
             this.#edgeTo.push('-');
@@ -41,6 +47,7 @@ class GraphDFS {
                 this.#edgeTo[w] = v;
             }
         }
+        this.#reversePost.push(v);
     }
 
     /**
@@ -72,7 +79,13 @@ class GraphDFS {
 
         return false;
     }
+
+    getReversePostorder() {
+        return this.#reversePost;
+    }
 }
+
+module.exports = GraphDFS;
 
 //     1
 //    / \   6-7
@@ -149,5 +162,3 @@ assert.ok(!search2.connected(10, 7));
 assert.ok(search3.connected(9, 10));
 assert.ok(!search3.connected(7, 8));
 assert.ok(!search3.connected(1, 6));
-
-console.log('All tests passed!');
