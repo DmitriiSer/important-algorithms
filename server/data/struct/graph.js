@@ -17,11 +17,36 @@ class Graph {
      */
     #adj;
 
+    /**
+     * @param {number} v 
+     */
     constructor(v) {
         this.#v = v;
         this.#adj = [];
         for (let i = 0; i < this.#v; i++)
             this.#adj.push([]);
+    }
+
+    /**
+     * Get number of graph vertices.
+     * @returns {number}
+     */
+    getVertexCount() {
+        return this.#v;
+    }
+
+    /**
+     * Get number of graph edges.
+     * @returns {number}
+     */
+    getEdgeCount() {
+        let count = 0;
+        for (let v = 0; v < this.#v; v++) {
+            for (let w of this.#adj) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
@@ -35,15 +60,7 @@ class Graph {
     }
 
     /**
-     * Get number of graph vertces.
-     * @returns {number}
-     */
-    getVerticesCount() {
-        return this.#v;
-    }
-
-    /**
-     * 
+     * Get adjacent vertices.
      * @param {number} v - vertix number
      * @returns 
      */
