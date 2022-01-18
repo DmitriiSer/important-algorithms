@@ -81,6 +81,8 @@ class Graph {
     }
 }
 
+module.exports = Graph;
+
 // 6 vertices, 8 edges:
 //     1
 //    / \
