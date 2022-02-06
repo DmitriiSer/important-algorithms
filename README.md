@@ -95,11 +95,17 @@ You want to become a really good programmer? You have to know algorithms and dat
     - Topological Sort in Directed Acyclic Graphs (DAG)
     - Strongly Connected Components / Kosaraju-Sharir algorithm
     - Minimum Spanning Tree (MST) of an Undirected Graph
-        - Kruskal's algorithm
-        - Prim's algorithm
+        - Kruskal algorithm
+        - Prim algorithm
     - Shortest Paths in Digraphs
         - Topological Sort (no directed cycles / DAG)
-        - Dijkstra's algorithm (no negative weights)
-        - Bellman-Ford (no negative cycles)
+        - Dijkstra algorithm (no negative weights)
+        - Bellman-Ford algorithm (no negative cycles)
         - Find Negative Cycle
     - Maximum Flow / Minimum Cut / Ford-Fulkerson algorithm
+- Substring Search
+    - Knuth-Morris-Pratt algorithm based on Deterministic Finite Automatons (DFA)
+    - Boyer-Moore algorithm
+    - Rabin-Karp algorithm
+- Regular Expressions
+    - Nondeterministic Finite Automaton (NFA) construction and simulation
