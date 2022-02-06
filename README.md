@@ -89,7 +89,11 @@ You want to become a really good programmer? You have to know algorithms and dat
     - Connected Components in Undirected Graphs
     - Topological Sort in Directed Acyclic Graphs (DAG)
     - Strongly Connected Components / Kosaraju-Sharir algorithm
-    - Minimum Spanning Tree (MST)
+    - Minimum Spanning Tree (MST) of an Undirected Graph
         - Kruskal's algorithm
         - Prim's algorithm
-    
+    - Shortest Paths in Digraphs
+        - Topological Sort (no directed cycles / DAG)
+        - Dijkstra's algorithm (no negative weights)
+        - Bellman-Ford (no negative cycles)
+        - Find Negative Cycle
