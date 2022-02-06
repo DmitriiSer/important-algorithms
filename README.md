@@ -9,6 +9,9 @@ You want to become a really good programmer? You have to know algorithms and dat
 
 - Linked List
 - Union-Find (Disjoint-Set)
+- Binary Heap
+    - Max-oriented Heap
+    - Min-oriented Heap
 - Stack
     - Linked list implementation
     - Resizable array implementation
@@ -19,8 +22,6 @@ You want to become a really good programmer? You have to know algorithms and dat
         - Unordered Array Implementation
         - Ordered Array Implementation
         - Binary Heap Implementation
-- Binary Heap
-    - Max-oriented Heap
 - Symbol Tables
 - Trees
     - Binary Search Tree (BST)
@@ -29,18 +30,23 @@ You want to become a really good programmer? You have to know algorithms and dat
     - B-trees
     - 2D Tree
     - Kd-Trees
+- Graphs
+    - Undirected graphs
+    - Directed graphs (digraphs)
 
 ## Algorithms
+
+### K-pointer algorithms
 
 ### Search algorithms
 
 - Binary Search
 - Tree Traversal
-    - DST
+    - Depth-first Search (DFS)
         - In-Order
         - Preorder
         - Postorder
-    - BST / Level-Order
+    - Breadth-first Search (BFS) / Level-Order
 
 ### Sort algorithms
 
@@ -54,17 +60,25 @@ You want to become a really good programmer? You have to know algorithms and dat
     - Bottom-up implementation with no recursion
 - Quick Sort
 - Heap Sort
+- String Sorts
+    - Key-indexed Counting
+    - Least-significant-digit-first (LSD) String Sort
+    - Most-significant-digit-first (MSD) String Sort
 
+#### Time complexity of sort algorithms
 
-|             | in-place | stable | worst    | average  | best    | comments                                             |
-|-------------|----------|--------|----------|----------|---------|------------------------------------------------------|
-| selection   | *        |        | N^2 / 2  | N^2 / 2  | N^2 / 2 | N exchanges                                          |
-| insertion   | *        | *      | N^2 / 2  | N^2 / 4  | N       | use for small N or partially ordered                 |
-| shell       | *        |        | ?        | ?        | N       | tight code, subquadratic                             |
-| quick       | *        |        | N^2 / 2  | 2 N ln N | N lg N  | N log N probabilistic guarantee, fastest in practice |
-| 3-way quick | *        |        | N^2 / 2  | 2 N ln N | N       | improves quicksort in presence of duplicate keys     |
-| merge       |          | *      | N lg N   | N lg N   | N lg N  | N log N guarantee, stable                            |
-| heap        | *        |        | 2 N lg N | 2 N lg N | N lg N  | N log N guarantee, in-place                          |
+|                       | in-place | stable | worst      | average    | best       | comments                                             |
+|-----------------------|----------|--------|------------|------------|------------|------------------------------------------------------|
+| selection             | *        |        | N^2 / 2    | N^2 / 2    | N^2 / 2    | N exchanges                                          |
+| insertion             | *        | *      | N^2 / 2    | N^2 / 4    | N          | use for small N or partially ordered                 |
+| shell                 | *        |        | ?          | ?          | N          | tight code, subquadratic                             |
+| quick                 | *        |        | N^2 / 2    | 2 N ln N   | N lg N     | N log N probabilistic guarantee, fastest in practice |
+| 3-way quick           | *        |        | N^2 / 2    | 2 N ln N   | N          | improves quicksort in presence of duplicate keys     |
+| merge                 |          | *      | N lg N     | N lg N     | N lg N     | N log N guarantee, stable                            |
+| heap                  | *        |        | 2 N lg N   | 2 N lg N   | N lg N     | N log N guarantee, in-place                          |
+| LSD                   |          | *      | 2 WN       | 2 WN       | 2 WN       | fixed-length W keys                                  |
+| MSD                   |          | *      | 2 WN       | 2 WN       | N logR N   | average length W keys, random - N logR N             |
+| 3-way radix quicksort |          | *      | 2 WN log N | 2 WN log N | 2 N log N  | average length W keys, random - 2 N log N            |
 
 ### Other
 
