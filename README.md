@@ -23,6 +23,11 @@ You want to become a really good programmer? You have to know algorithms and dat
         - Ordered Array Implementation
         - Binary Heap Implementation
 - Symbol Tables
+    - Red-black Binary Search Tree
+    - Hash Table
+    - Tries
+        - R-way Tries
+        - Ternary Search Tries (TST)
 - Trees
     - Binary Search Tree (BST)
     - 2-3 Trees
@@ -97,3 +102,4 @@ You want to become a really good programmer? You have to know algorithms and dat
         - Dijkstra's algorithm (no negative weights)
         - Bellman-Ford (no negative cycles)
         - Find Negative Cycle
+    - Maximum Flow / Minimum Cut / Ford-Fulkerson algorithm
