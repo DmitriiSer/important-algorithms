@@ -83,3 +83,9 @@ You want to become a really good programmer? You have to know algorithms and dat
 ### Other
 
 - Union-find (Disjoint-set) algorithm
+- Graph
+    - Depth-First Search (DFS) / Reachability
+    - Breadth-First Search (BFS) / Shortest paths
+    - Connected Components in Undirected Graphs
+    - Topological Sort in Directed Acyclic Graphs (DAG)
+    - Strongly Connected Components / Kosaraju-Sharir algorithm
