@@ -109,3 +109,5 @@ You want to become a really good programmer? You have to know algorithms and dat
     - Rabin-Karp algorithm
 - Regular Expressions
     - Nondeterministic Finite Automaton (NFA) construction and simulation
+- Data Compression
+    - Hufman compression
