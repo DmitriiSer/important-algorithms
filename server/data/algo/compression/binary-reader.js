@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-class BitReader {
+class BinaryReader {
 
     #filename;
     #buffer;
@@ -17,6 +17,14 @@ class BitReader {
         return this.#buffer.length;
     }
 
+    isEOF() {
+        return this.#bytePos === this.size() - 1 && this.#bitPos === 8;
+    }
+
+    byteAt(i) {
+        return this.#buffer[i];
+    }
+
     /**
      * Reads one bit at a time.
      * @returns {boolean}
@@ -28,26 +36,30 @@ class BitReader {
             this.#curByte = this.#buffer.readUInt8(this.#bytePos);
         }
 
-        const bits = this.#byteToPAddedBitsString(this.#curByte);
+        const bits = this.#byteToPaddedBitsString(this.#curByte);
         const val = bits[this.#bitPos] === '1';
         this.#bitPos++;
         return val;
     }
 
-    readChar(bits) {
+    readChar(bits = 8) {
         let str = '';
         for (let i = 0; i < bits; i++) {
+            if (this.#bytePos === this.size() - 1 && this.#bitPos === 8) {
+                str = str.padEnd(8, '0');
+                break;
+            }
             str += this.readBit() ? '1' : '0';
         }
-        
-        var charCode = parseInt(str.split('').reverse().join(''), 2);
+
+        var charCode = parseInt(str, 2);
         str = String.fromCharCode(charCode);
         return str;
     }
 
-    #byteToPAddedBitsString(num) {
+    #byteToPaddedBitsString(num) {
         return (num >>> 0).toString(2).padStart(8, '0');
     }
 }
 
-module.exports = BitReader;
+module.exports = BinaryReader;
