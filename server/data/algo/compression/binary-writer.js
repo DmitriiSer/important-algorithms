@@ -10,6 +10,7 @@ class BinaryWriter {
     #bytePos;
     #curByte;
     #strBits;
+    #strBitsPointer;
 
     /**
      * 
@@ -26,6 +27,35 @@ class BinaryWriter {
         this.#bitPos = 0;
         this.#bytePos = 0;
         this.#strBits = '';
+        this.#strBitsPointer = 0;
+    }
+
+    close() {
+        if (this.#fd) {
+            try {
+                fs.closeSync(this.#fd);
+            } catch (e) { }
+        }
+    }
+
+    getBitsAsBinaryString(sinceLastRequest = false) {
+        if (sinceLastRequest) {
+            const pos = this.#strBitsPointer;
+            this.#strBitsPointer = this.#strBits.length;
+            return this.#strBits.substring(pos);
+        }
+        return this.#strBits;
+    }
+
+    getBuffer() {
+        const bufSize = Math.ceil(this.#strBits.length / 8);
+        const buffer = Buffer.alloc(bufSize);
+        for (let i = 0; i < bufSize; i++) {
+            const binaryByteStr = this.#strBits.substring(8 * i, 8 * i + 8).padEnd(8, '0');
+            const num = +parseInt(binaryByteStr, 2).toString(10);
+            buffer.writeUInt8(num, i);
+        }
+        return buffer;
     }
 
     /**
@@ -34,10 +64,11 @@ class BinaryWriter {
      */
     writeBit(bit) {
         this.#strBits += bit ? '1' : '0';
-        let buffer = Buffer.alloc(1);
+        let buffer;
         if (this.#curByte == null || this.#bitPos === 8) {
             this.#bitPos = 0;
             this.#bytePos = this.#curByte == null ? 0 : this.#bytePos + 1;
+            buffer = Buffer.alloc(1);
             this.setBit(buffer, 0, this.#bitPos, +bit);
             this.#curByte = buffer.readUInt8(0);
         }
@@ -46,7 +77,9 @@ class BinaryWriter {
         this.setBit(buffer, 0, this.#bitPos, +bit);
         this.#curByte = buffer.readUInt8(0);
 
-        fs.writeSync(this.#fd, buffer, 0, 1, this.#bytePos);
+        if (this.#fd) {
+            fs.writeSync(this.#fd, buffer, 0, 1, this.#bytePos);
+        }
 
         this.#bitPos++;
     }
@@ -71,7 +104,7 @@ class BinaryWriter {
     }
 
     writeInt(int) {
-        const bits = this.#numToPaddedBitsString(int);
+        const bits = this.#numToPaddedBitsString(int, 32);
         for (let i = 0; i < bits.length; i++) {
             this.writeBit(+bits[i]);
         }
@@ -81,8 +114,8 @@ class BinaryWriter {
         return (char.charCodeAt(0) >>> 0).toString(2).padStart(8, '0');
     }
 
-    #numToPaddedBitsString(num) {
-        return (num >>> 0).toString(2).padStart(8, '0');
+    #numToPaddedBitsString(num, pad = 8) {
+        return (num >>> 0).toString(2).padStart(pad, '0');
     }
 }
 
