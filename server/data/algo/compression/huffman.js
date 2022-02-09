@@ -1,6 +1,6 @@
-const tmp = require('tmp');
-const fs = require('fs');
 const assert = require('assert');
+
+const fs = require('fs');
 
 const { MinPriorityQueue } = require('datastructures-js');
 
@@ -14,6 +14,10 @@ class HuffmanEncoder {
      * Alphabet radix
      */
     static R = 255; // extended ASCII
+    /**
+     * @type {BufferEncoding}
+     */
+    static encoding = 'ascii';
 
     /**
      * @type {BinaryReader}
@@ -26,11 +30,18 @@ class HuffmanEncoder {
     #chars;
 
     /**
-     * Compresses a string using Huffman encoding.
+     * Compresses a string or a byte buffer using Huffman encoding.
      * 
-     * @param {string} str contains a string to compress
+     * @param {string | Buffer} strOrBuffer contains a string or a byte Buffer to compress
+     * @returns {Buffer}
      */
-    compressString(str) {
+    compress(strOrBuffer) {
+        let str;
+        if (typeof strOrBuffer === 'string') {
+            str = strOrBuffer;
+        } else {
+            str = strOrBuffer.toString(HuffmanEncoder.encoding);
+        }
         // build character frequency and code map
         this.#chars = {};
         for (let i = 0; i < str.length; i++) {
@@ -66,6 +77,8 @@ class HuffmanEncoder {
             // console.log(`Encoded character ${char} with ${code}: ${this.#bitWriter.getBitsAsBinaryString(true)}`);
         }
         const buffer = this.#bitWriter.getBuffer();
+        // console.log(`Encoded bytes:`, this.#bitWriter.getBuffer());
+        // console.log(`Encoded bits: ${this.#bitWriter.getBitsAsBinaryString()}`);
         return buffer;
     }
 
@@ -74,11 +87,12 @@ class HuffmanEncoder {
      * 
      * @param {string} src contains the source file name
      * @param {string} dest contains the destinatioc file name
+     * @returns {Buffer}
      */
     compressFile(src, dest) {
         // read the file
         const readBuf = fs.readFileSync(src);
-        const buf = this.compressString(readBuf.toString('ascii'));
+        const buf = this.compress(readBuf.toString(HuffmanEncoder.encoding));
 
         // write compressed buffer to the destination file
         fs.writeFileSync(dest, buf);
@@ -87,11 +101,41 @@ class HuffmanEncoder {
     }
 
     /**
-     * Expands a string using Huffman decoding.
-     * @param {string} str 
+     * Expands a string or a byte buffer using Huffman decoding.
+     * @param {string | Buffer} strOrBuffer contains a string or a byte Buffer to expand
+     * @returns {Buffer}
      */
-    expandString(str) {
-        return null;
+    expand(strOrBuffer) {
+        let buf;
+        if (typeof strOrBuffer === 'string') {
+            buf = Buffer.from(strOrBuffer, HuffmanEncoder.encoding);
+        } else {
+            buf = strOrBuffer;
+        }
+
+        // read character trie
+        this.#bitReader = new BinaryReader(buf);
+        const root = this.#readTrie();
+
+        // read number of bytes in compressed message
+        let n = this.#bitReader.readInt();
+
+        // use Huffman code to encode input
+        let buffer = Buffer.alloc(n);
+        let trie = root;
+        let byte = 0;
+        while (!this.#bitReader.isEOF() && byte < n) {
+            const bit = this.#bitReader.readBit();
+            trie = bit ? trie.right : trie.left;
+
+            if (trie.char !== '\0') {
+                const charCode = trie.char.charCodeAt(0);
+                buffer.writeUInt8(charCode, byte++);
+                trie = root;
+            }
+        }
+
+        return buffer;
     }
 
     /**
@@ -99,45 +143,17 @@ class HuffmanEncoder {
      * 
      * @param {string} src contains the source file name
      * @param {string} dest contains the destinatioc file name
+     * @returns {Buffer}
      */
     expandFile(src, dest) {
-        // read character trie
-        this.#bitReader = new BinaryReader(src);
-        const root = this.#readTrie();
+        // read the file
+        const readBuf = fs.readFileSync(src);
+        const buf = this.expand(readBuf);
 
-        const bytesToRead = 1;
+        // write expanded buffer to the destination file
+        fs.writeFileSync(dest, buf);
 
-        let n;
-
-        // let readFd;
-        // try {
-        //     readFd = fs.openSync(this.#filename, 'r');
-        //     const buffer = Buffer.alloc(bytesToRead);
-        //     fs.readSync(readFd, buffer, 0, bytesToRead, 0);
-        //     n = +buffer.toString('utf8');
-
-        //     if (Number.isInteger(n)) {
-        //         const tmpobj = tmp.fileSync();
-        //         if (tmpobj.fd) {
-        //             const writeFd = tmpobj.fd;
-        //             console.log('Temp file name: ' + tmpobj.name);
-
-        //             let writePos = 0;
-        //             for (let i = 0; i < n; i++) {
-        //                 let x = root;
-        //                 while (!x.isLeaf()) {
-        //                     x = true ? x.left : x.right;
-        //                 }
-        //                 fs.writeSync(writeFd, Buffer.from(x.char), 0, bytesToRead, writePos);
-        //                 writePos++;
-        //             }
-        //         }
-        //     }
-        // } catch (err) {
-        //     console.log(err.message);
-        // } finally {
-        //     if (readFd !== undefined) fs.closeSync(readFd);
-        // }
+        return buf;
     }
 
     /**
@@ -233,20 +249,20 @@ const origFilename = './server/assets/orig.txt';
 const compressedFilename = './server/assets/compressed.huff';
 const expandedFilename = './server/assets/expanded.txt';
 const he = new HuffmanEncoder();
-const compressedBuffer = he.compressString(origString);
-const compressedStr = compressedBuffer.toString('ascii');
+const compressedBuffer = he.compress(origString);
+const compressedStr = compressedBuffer.toString(HuffmanEncoder.encoding);
 he.compressFile(origFilename, compressedFilename);
 const compressedFileBuffer = fs.readFileSync(compressedFilename);
-const compressedFileStr = compressedFileBuffer.toString('ascii');
+const compressedFileStr = compressedFileBuffer.toString(HuffmanEncoder.encoding);
 
 assert.equal(compressedStr, compressedFileStr);
 
-const expandedBuffer = he.expandString(compressedStr);
-const expandedStr = expandedBuffer.toString('ascii');
+const expandedBuffer = he.expand(compressedBuffer);
+const expandedStr = expandedBuffer.toString(HuffmanEncoder.encoding);
 assert.equal(origString, expandedStr);
 
 const expandedFileBuffer = he.expandFile(compressedFilename, expandedFilename);
-const expandedFileStr = expandedFileBuffer.toString('ascii');
+const expandedFileStr = expandedFileBuffer.toString(HuffmanEncoder.encoding);
 
 assert.equal(expandedStr, expandedFileStr);
 
