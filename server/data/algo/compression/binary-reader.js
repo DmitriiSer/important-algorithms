@@ -7,10 +7,24 @@ class BinaryReader {
     #bitPos;
     #bytePos;
     #curByte;
+    #strBits;
 
-    constructor(filename) {
-        this.#filename = filename;
-        this.#buffer = fs.readFileSync(this.#filename);
+    /**
+     * 
+     * @param {string | Buffer} filenameOrBuffer 
+     */
+    constructor(filenameOrBuffer) {
+        if (typeof filenameOrBuffer === 'string') {
+            this.#filename = filenameOrBuffer;
+            this.#buffer = fs.readFileSync(this.#filename);
+        } else {
+            this.#buffer = filenameOrBuffer;
+        }
+        this.#strBits = '';
+        for (let i = 0; i < this.#buffer.length; i++) {
+            const byte = this.#buffer[i];
+            this.#strBits += byte.toString(2).padStart(8, '0');
+        }
     }
 
     size() {
@@ -55,6 +69,14 @@ class BinaryReader {
         var charCode = parseInt(str, 2);
         str = String.fromCharCode(charCode);
         return str;
+    }
+
+    readInt(bits = 32) {
+        let str = '';
+        for (let i = 0; i < bits; i++) {
+            str += +this.readBit();
+        }
+        return parseInt(str, 2);
     }
 
     #byteToPaddedBitsString(num) {

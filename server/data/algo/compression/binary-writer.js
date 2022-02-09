@@ -44,7 +44,8 @@ class BinaryWriter {
             this.#strBitsPointer = this.#strBits.length;
             return this.#strBits.substring(pos);
         }
-        return this.#strBits;
+        const bits = Math.ceil(this.#strBits.length / 8) * 8;
+        return this.#strBits.padEnd(bits, '0');
     }
 
     getBuffer() {
