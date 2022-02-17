@@ -1,5 +1,5 @@
 const assert = require('assert');
-const merge = require('./merge-sort').merge;
+const merge = require('../merge-sort').merge;
 
 /**
  * 

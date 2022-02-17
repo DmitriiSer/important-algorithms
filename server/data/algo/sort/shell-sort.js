@@ -1,4 +1,4 @@
-const swap = require('./util').swap;
+const swap = require('../util').swap;
 
 /**
  * 
