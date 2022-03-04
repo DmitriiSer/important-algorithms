@@ -104,6 +104,7 @@ You want to become a really good programmer? You have to know algorithms and dat
         - Find Negative Cycle
     - Maximum Flow / Minimum Cut / Ford-Fulkerson algorithm
 - Substring Search
+    - Naive algorithm
     - Knuth-Morris-Pratt algorithm based on Deterministic Finite Automatons (DFA)
     - Boyer-Moore algorithm
     - Rabin-Karp algorithm
